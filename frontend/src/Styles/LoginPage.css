@@ -1,0 +1,234 @@
+/* General Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333; /* Dark grey for text */
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: #2c3e50; /* Darker grey-blue */
+    padding: 10px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden; /* To contain border animation */
+}
+
+
+.navbar-brand {
+    color: #ecf0f1; /* Very light grey */
+    font-size: 1.8rem; /* Increased font size */
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    position: relative; /* For animation underline */
+    display: inline-block;
+    z-index: 1; /* Ensure text is above border */
+}
+.navbar-brand strong {
+  font-weight: 900;
+    color: #3498db; /* Light blue hover */
+}
+
+
+.navbar-brand:hover {
+    color: #3498db; /* Light blue hover */
+}
+
+
+.navbar-brand:before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #3498db;
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: all 0.3s ease-in-out;
+}
+.navbar-brand:hover:before {
+    visibility: visible;
+    transform: scaleX(1);
+}
+
+.navbar-brand.text-center {
+    flex: 1;
+    text-align: center;
+}
+
+.navbar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px solid transparent; /* Start transparent */
+    background: linear-gradient(45deg, #3498db, #2ecc71, #e74c3c, #9b59b6); /* Multi-color gradient */
+     background-clip: padding-box;
+     -webkit-mask:
+    linear-gradient(#fff 0 0) padding-box,
+    linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+      pointer-events: none;
+    animation: border-animation 4s linear infinite; /* Animate border color */
+}
+
+@keyframes border-animation {
+    0% { border-color: transparent;}
+    25% {border-color: #3498db;}
+     50%{ border-color: #2ecc71;}
+    75%{border-color: #e74c3c;}
+    100% {border-color: #9b59b6; }
+}
+
+
+/* Login Page Styles */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 70px); /* Adjust for the navbar height */
+    background: linear-gradient(135deg, #81ecec, #6c5ce7); /* Vibrant gradient */
+    animation: background-gradient 5s ease infinite; /* Subtle gradient animation */
+}
+@keyframes background-gradient {
+  0%{ background: linear-gradient(135deg, #81ecec, #6c5ce7); }
+  50% {background: linear-gradient(135deg, #6c5ce7,#81ecec) }
+   100%{ background: linear-gradient(135deg, #81ecec, #6c5ce7); }
+}
+.login-form-wrapper {
+    width: 400px;
+    max-width: 90%;
+    padding: 30px;
+    background-color: #f5f6fa; /* Very light gray */
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative; /* Needed for border animation */
+    overflow: hidden; /* To contain border animation */
+}
+.login-form-wrapper::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px solid transparent; /* Start transparent */
+    background: linear-gradient(45deg, #3498db, #2ecc71, #e74c3c, #9b59b6); /* Multi-color gradient */
+     background-clip: padding-box;
+    -webkit-mask:
+   linear-gradient(#fff 0 0) padding-box,
+   linear-gradient(#fff 0 0);
+   -webkit-mask-composite: destination-out;
+   mask-composite: exclude;
+     pointer-events: none;
+   animation: border-animation-login 4s linear infinite; /* Animate border color */
+}
+@keyframes border-animation-login {
+    0% { border-color: transparent;}
+    25% {border-color: #3498db;}
+     50%{ border-color: #2ecc71;}
+    75%{border-color: #e74c3c;}
+    100% {border-color: #9b59b6; }
+}
+
+.login-form-wrapper:hover {
+  transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+.login-heading {
+    color: #2c3e50; /* Dark grey-blue */
+    margin-bottom: 25px;
+    font-weight: 700;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    animation: heading-slide 0.5s ease;
+}
+@keyframes heading-slide {
+  0%{opacity: 0; transform: translateY(-10px);}
+  100%{ opacity: 1; transform: translateY(0);}
+}
+
+.login-label {
+    color: #4a6572; /* Medium dark grey */
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.login-input {
+    padding: 12px;
+    border: 2px solid #bdc3c7; /* Light grey */
+    border-radius: 8px;
+    margin-bottom: 15px;
+    color: #333;
+    background-color: #f0f0f0; /* Light grey */
+    width: calc(100% - 26px); /* Adjust to account for padding */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-select {
+  padding: 12px;
+  border: 2px solid #bdc3c7;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  color: #333;
+  background-color: #f0f0f0;
+  width: 100%;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-input:focus, .login-select:focus {
+    border-color: #3498db; /* Light blue */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08), 0 0 5px rgba(52, 152, 219, 0.3);
+    outline: none;
+}
+
+.login-button {
+    display: block;
+    width: 100%;
+    padding: 14px 22px;
+    background: linear-gradient(45deg, #3498db, #2980b9); /* Gradient blue */
+    color: #ecf0f1; /* Very light grey */
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    animation: button-fade-in 0.5s ease;
+}
+@keyframes button-fade-in {
+  0%{opacity: 0; transform: translateY(10px);}
+  100%{ opacity: 1; transform: translateY(0);}
+}
+
+.login-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.alert {
+  margin-bottom: 15px;
+  padding: 10px 15px;
+  border-radius: 8px;
+}
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .login-form-wrapper {
+    padding: 20px;
+  }
+}
