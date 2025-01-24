@@ -125,7 +125,7 @@ const FillForm = ({ form }) => {
         }, {});
         const formData = { formId: form._id, responses: formattedResponses };
 
-        fetch('http://localhost:5000/api/forms/submit', {
+        fetch('https://form-builder-38h6.onrender.com/api/forms/submit', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formData),

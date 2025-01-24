@@ -16,7 +16,7 @@ const LoginPage = () => {
     try {
       const loginData = { username, password }; // Pass data as an object
       const response = await axios.post(
-        'http://localhost:5000/api/auth/login',
+        'https://form-builder-38h6.onrender.com/api/auth/login',
         loginData,
         { headers: { 'Content-Type': 'application/json' } } // Add headers explicitly
       );

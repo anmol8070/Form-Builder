@@ -23,7 +23,7 @@ const AdminDashboard = () => {
         e.preventDefault();
         try {
             const formData = { title, fields };
-            const response = await axios.post('http://localhost:5000/api/admin/create', formData, {
+            const response = await axios.post('https://form-builder-38h6.onrender.com/api/admin/create', formData, {
                 headers: { 'Content-Type': 'application/json' },
             });
             console.log('Form created:', response.data);
@@ -38,7 +38,7 @@ const AdminDashboard = () => {
 
     const fetchForms = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/api/forms/');
+            const response = await axios.get('https://form-builder-38h6.onrender.com/api/forms/');
             setForms(response.data);
         } catch (error) {
             console.error('Error fetching forms:', error);
@@ -47,7 +47,7 @@ const AdminDashboard = () => {
 
     const fetchSubmissions = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/api/admin/submissions');
+            const response = await axios.get('https://form-builder-38h6.onrender.com/api/admin/submissions');
             setSubmissions(response.data);
         } catch (error) {
             console.error('Error fetching submissions:', error);
@@ -58,7 +58,7 @@ const AdminDashboard = () => {
         try {
              const statusData = { id, status };
             const response = await axios.patch(
-                'http://localhost:5000/api/admin/submissions/status',
+                'https://form-builder-38h6.onrender.com/api/admin/submissions/status',
                 statusData,
                 { headers: { 'Content-Type': 'application/json' } }
             );
@@ -82,7 +82,7 @@ const AdminDashboard = () => {
     const handleDeleteSubmission = async (id) => {
         try {
             const response = await axios.post(
-                'http://localhost:5000/api/admin/deleteSubmission',
+                'https://form-builder-38h6.onrender.com/api/admin/deleteSubmission',
                 { id }, // Send the id in the request body
                 { headers: { 'Content-Type': 'application/json' } }
             );

@@ -17,7 +17,7 @@ const RegisterPage = () => {
     try {
       const registrationData = { username, password, role }; // Pass data as an object
       const response = await axios.post(
-        'http://localhost:5000/api/auth/register',
+        'https://form-builder-38h6.onrender.com/api/auth/register',
         registrationData,
         { headers: { 'Content-Type': 'application/json' } } // Add headers explicitly
       );
