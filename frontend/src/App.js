@@ -9,9 +9,12 @@ import './Styles/AdminDashboard.css';
 import './Styles/UserDashboard.css';
 import './Styles/LoginPage.css';
 import './Styles/RegisterPage.css';
+import Navbar from './pages/Navbar';
 
 function App() {
   return (
+   <div>
+    <Navbar/>
     <Router>
       <Routes>
         <Route path="/" element={<LoginPage />} />
@@ -22,6 +25,7 @@ function App() {
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>
+   </div>
   );
 }
 

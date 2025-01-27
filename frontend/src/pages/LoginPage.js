@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios'; // Import Axios
+import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../Styles/LoginPage.css'; // Corrected import path
+import '../Styles/LoginPage.css';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
@@ -14,16 +14,15 @@ const LoginPage = () => {
     e.preventDefault();
 
     try {
-      const loginData = { username, password }; // Pass data as an object
+      const loginData = { username, password };
       const response = await axios.post(
         'https://form-builder-38h6.onrender.com/api/auth/login',
         loginData,
-        { headers: { 'Content-Type': 'application/json' } } // Add headers explicitly
+        { headers: { 'Content-Type': 'application/json' } }
       );
       alert("Login successful")
       console.log('Login successful:', response.data);
 
-      // Directly navigate based on user role
       const userRole = response.data.user.role;
       console.log(userRole)
       if (userRole === 'Admin') {
@@ -44,11 +43,7 @@ const LoginPage = () => {
 
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light mb-4">
-        <div className="container justify-content-center">
-          <span className="navbar-brand text-center">Form Builder App</span>
-        </div>
-      </nav>
+      
       <div className="login-container">
         <div className="login-form-wrapper card shadow p-4">
           <h2 className="text-center mb-4 login-heading">Login</h2>

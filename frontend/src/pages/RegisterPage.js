@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios'; // Import Axios
+import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../Styles/RegisterPage.css'; // Import the CSS
+import '../Styles/RegisterPage.css';
 
 const RegisterPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('User'); // Default to User role
+  const [role, setRole] = useState('User');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -15,18 +15,17 @@ const RegisterPage = () => {
     e.preventDefault();
 
     try {
-      const registrationData = { username, password, role }; // Pass data as an object
+      const registrationData = { username, password, role };
       const response = await axios.post(
         'https://form-builder-38h6.onrender.com/api/auth/register',
         registrationData,
-        { headers: { 'Content-Type': 'application/json' } } // Add headers explicitly
+        { headers: { 'Content-Type': 'application/json' } }
       );
 
       alert("Registration successful")
       console.log('Registration successful:', response.data);
 
       if (response.status === 200) {
-        // Redirect to login page
         navigate('/');
       }
     } catch (error) {

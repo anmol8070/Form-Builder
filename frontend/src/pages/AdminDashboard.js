@@ -123,11 +123,12 @@ const AdminDashboard = () => {
                             />
                         </div>
                         <div className="mb-3">
-                            <label className="form-label">Fields:</label>
+                             <label className="form-label">Fields:</label>
                             {fields.map((field, index) => (
-                                <div key={index} className="input-group mb-2">
+                                 <div key={index} className="input-group mb-2 field-item">
                                     <input
-                                        type="text"
+                                        type="text" 
+                                        style={{"width":"240px"}}
                                         className="form-control"
                                         value={field}
                                         onChange={(e) => handleFieldChange(index, e)}

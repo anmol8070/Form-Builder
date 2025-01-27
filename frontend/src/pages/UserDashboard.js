@@ -37,7 +37,6 @@ const SpeechRecognitionComponent = ({ onSpeech, language }) => {
     }, [getMonthNumber]);
 
     const postProcessTranscript = useCallback((transcript) => {
-        // Replace common misinterpretations of "@gmail.com"
         let processedTranscript = transcript.replace(/at gmail dot com/gi, "@gmail.com");
         processedTranscript = processedTranscript.replace(/at gmail.com/gi, "@gmail.com");
         processedTranscript = processedTranscript.replace(/gmail dot com/gi, "gmail.com");
@@ -53,10 +52,7 @@ const SpeechRecognitionComponent = ({ onSpeech, language }) => {
         processedTranscript = processedTranscript.replace(/add the rate/gi, "@");
         processedTranscript = processedTranscript.replace(/at the rate/gi, "@");
         processedTranscript = processedTranscript.replace(/add/gi, "@");
-
-        // Attempt to format date
         processedTranscript = formatDate(processedTranscript);
-
         return processedTranscript;
     }, [formatDate]);
 
@@ -65,7 +61,7 @@ const SpeechRecognitionComponent = ({ onSpeech, language }) => {
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
             const rec = new SpeechRecognition();
             rec.continuous = false;
-            rec.lang = language || 'en-US'; // Set language from props or default to en-US
+            rec.lang = language || 'en-US';
             rec.onresult = (event) => {
                 let transcript = Array.from(event.results)
                     .map(result => result[0])
@@ -220,7 +216,7 @@ const UserDashboard = () => {
                     </ul>
                 </div>
             </nav>
-            <h1 className="mb-4 text-center dashboard-title">User Dashboard</h1>
+            <h1 className="mb-4  dashboard-title">User Dashboard</h1>
             <div className="form-grid mb-5">
                 {forms.length === 0 ? (
                     <p>Loading forms...</p>
