@@ -7,30 +7,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const SpeechRecognitionComponent = ({ onSpeech, language }) => {
     const [recognition, setRecognition] = useState(null);
 
-    const postProcessTranscript = useCallback((transcript) => {
-        // Replace common misinterpretations of "@gmail.com"
-        let processedTranscript = transcript.replace(/at gmail dot com/gi, "@gmail.com");
-        processedTranscript = processedTranscript.replace(/at gmail.com/gi, "@gmail.com");
-        processedTranscript = processedTranscript.replace(/gmail dot com/gi, "gmail.com");
-        processedTranscript = processedTranscript.replace(/gmail com/gi, "gmail.com");
-        processedTranscript = processedTranscript.replace(/at the rate gmail dot com/gi, "@gmail.com");
-        processedTranscript = processedTranscript.replace(/at the rate gmail.com/gi, "@gmail.com");
-         processedTranscript = processedTranscript.replace(/at the rate gmail/gi, "@gmail");
-        processedTranscript = processedTranscript.replace(/at gmail/gi, "@gmail");
-         processedTranscript = processedTranscript.replace(/add gmail dot com/gi, "@gmail.com");
-        processedTranscript = processedTranscript.replace(/add gmail.com/gi, "@gmail.com");
-        processedTranscript = processedTranscript.replace(/add gmail/gi, "@gmail");
-        processedTranscript = processedTranscript.replace(/gmail/gi, "gmail");
-         processedTranscript = processedTranscript.replace(/add the rate/gi, "@");
-        processedTranscript = processedTranscript.replace(/at the rate/gi, "@");
-        processedTranscript = processedTranscript.replace(/add/gi, "@");
-
-        // Attempt to format date
-        processedTranscript = formatDate(processedTranscript);
-
-        return processedTranscript;
-    }, []);
-
     const formatDate = useCallback((transcript) => {
         const dateRegex1 = /(\d{1,2})[/\\-](\d{1,2})[/\\-](\d{2,4})/; // MM/DD/YYYY or MM-DD-YYYY
         const dateRegex2 = /([a-zA-Z]+)\s*(\d{1,2})(?:st|nd|rd|th)?\s*,\s*(\d{4})/; // Month DD, YYYY
@@ -59,6 +35,33 @@ const SpeechRecognitionComponent = ({ onSpeech, language }) => {
         const monthIndex = monthNames.findIndex(month => month.startsWith(monthName.toLowerCase()));
         return monthIndex > -1 ? String(monthIndex + 1) : null;
     }, []);
+
+
+    const postProcessTranscript = useCallback((transcript) => {
+        // Replace common misinterpretations of "@gmail.com"
+        let processedTranscript = transcript.replace(/at gmail dot com/gi, "@gmail.com");
+        processedTranscript = processedTranscript.replace(/at gmail.com/gi, "@gmail.com");
+        processedTranscript = processedTranscript.replace(/gmail dot com/gi, "gmail.com");
+        processedTranscript = processedTranscript.replace(/gmail com/gi, "gmail.com");
+        processedTranscript = processedTranscript.replace(/at the rate gmail dot com/gi, "@gmail.com");
+        processedTranscript = processedTranscript.replace(/at the rate gmail.com/gi, "@gmail.com");
+        processedTranscript = processedTranscript.replace(/at the rate gmail/gi, "@gmail");
+        processedTranscript = processedTranscript.replace(/at gmail/gi, "@gmail");
+        processedTranscript = processedTranscript.replace(/add gmail dot com/gi, "@gmail.com");
+        processedTranscript = processedTranscript.replace(/add gmail.com/gi, "@gmail.com");
+        processedTranscript = processedTranscript.replace(/add gmail/gi, "@gmail");
+        processedTranscript = processedTranscript.replace(/gmail/gi, "gmail");
+        processedTranscript = processedTranscript.replace(/add the rate/gi, "@");
+        processedTranscript = processedTranscript.replace(/at the rate/gi, "@");
+        processedTranscript = processedTranscript.replace(/add/gi, "@");
+
+        // Attempt to format date
+        processedTranscript = formatDate(processedTranscript);
+
+        return processedTranscript;
+    }, [formatDate]);
+
+
 
     useEffect(() => {
         if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
@@ -200,7 +203,7 @@ const UserDashboard = () => {
     useEffect(() => {
         // Fetch forms from the backend
         axios
-            .get('http://localhost:5000/api/forms')
+            .get('https://form-builder-38h6.onrender.com/api/forms')
             .then((response) => {
                 setForms(response.data);
             })
@@ -210,7 +213,7 @@ const UserDashboard = () => {
 
         // Fetch submissions from the backend
         axios
-            .get('http://localhost:5000/api/forms/getSubmitForm')
+            .get('https://form-builder-38h6.onrender.com/api/forms/getSubmitForm')
             .then((response) => {
                 setSubmissions(response.data);
             })
@@ -271,11 +274,11 @@ const UserDashboard = () => {
                                 <tr key={index}>
                                     <td>{submission.formTitle}</td>
                                     <td>
-                                          <span
-                                              className={`status-tag status-${submission.status.toLowerCase()}`}
-                                          >
-                                                {submission.status}
-                                          </span>
+                                        <span
+                                            className={`status-tag status-${submission.status.toLowerCase()}`}
+                                        >
+                                            {submission.status}
+                                        </span>
                                     </td>
                                 </tr>
                             ))
