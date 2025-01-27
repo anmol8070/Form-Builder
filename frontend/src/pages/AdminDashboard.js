@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -36,23 +36,23 @@ const AdminDashboard = () => {
         }
     };
 
-    const fetchForms = async () => {
+    const fetchForms = useCallback(async () => {
         try {
             const response = await axios.get('https://form-builder-38h6.onrender.com/api/forms/');
             setForms(response.data);
         } catch (error) {
             console.error('Error fetching forms:', error);
         }
-    };
+    }, []);
 
-    const fetchSubmissions = async () => {
+    const fetchSubmissions = useCallback(async () => {
         try {
             const response = await axios.get('https://form-builder-38h6.onrender.com/api/admin/submissions');
             setSubmissions(response.data);
         } catch (error) {
             console.error('Error fetching submissions:', error);
         }
-    };
+    }, []);
 
     const handleStatusChange = async (id, status) => {
         try {
@@ -91,7 +91,7 @@ const AdminDashboard = () => {
     useEffect(() => {
         fetchForms();
         fetchSubmissions();
-    }, []);
+    }, [fetchForms, fetchSubmissions]);
 
     return (
         <div className="container admin-dashboard-container mt-5">
