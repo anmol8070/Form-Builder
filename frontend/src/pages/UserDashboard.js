@@ -7,6 +7,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const SpeechRecognitionComponent = ({ onSpeech, language }) => {
     const [recognition, setRecognition] = useState(null);
 
+    const getMonthNumber = useCallback((monthName) => {
+        const monthNames = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+        const monthIndex = monthNames.findIndex(month => month.startsWith(monthName.toLowerCase()));
+        return monthIndex > -1 ? String(monthIndex + 1) : null;
+    }, []);
+
     const formatDate = useCallback((transcript) => {
         const dateRegex1 = /(\d{1,2})[/\\-](\d{1,2})[/\\-](\d{2,4})/; // MM/DD/YYYY or MM-DD-YYYY
         const dateRegex2 = /([a-zA-Z]+)\s*(\d{1,2})(?:st|nd|rd|th)?\s*,\s*(\d{4})/; // Month DD, YYYY
@@ -28,14 +34,7 @@ const SpeechRecognitionComponent = ({ onSpeech, language }) => {
             }
         }
         return transcript;
-    }, []);
-
-    const getMonthNumber = useCallback((monthName) => {
-        const monthNames = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
-        const monthIndex = monthNames.findIndex(month => month.startsWith(monthName.toLowerCase()));
-        return monthIndex > -1 ? String(monthIndex + 1) : null;
-    }, []);
-
+    }, [getMonthNumber]);
 
     const postProcessTranscript = useCallback((transcript) => {
         // Replace common misinterpretations of "@gmail.com"
@@ -60,8 +59,6 @@ const SpeechRecognitionComponent = ({ onSpeech, language }) => {
 
         return processedTranscript;
     }, [formatDate]);
-
-
 
     useEffect(() => {
         if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
@@ -103,7 +100,6 @@ const FillForm = ({ form }) => {
     const [responses, setResponses] = useState({});
     const [listeningField, setListeningField] = useState(null);
 
-    // Handle input changes
     const handleChange = (e, fieldName) => {
         setResponses((prevResponses) => ({
             ...prevResponses,
@@ -119,11 +115,10 @@ const FillForm = ({ form }) => {
         setListeningField(null);
     };
 
-    // Submit form responses
     const handleSubmit = (e) => {
         e.preventDefault();
         const formattedResponses = form.fields.reduce((acc, field) => {
-            acc[field] = responses[field] || ''; // Use the field name as the key
+            acc[field] = responses[field] || '';
             return acc;
         }, {});
         const formData = { formId: form._id, responses: formattedResponses };
@@ -152,11 +147,7 @@ const FillForm = ({ form }) => {
                 <form onSubmit={handleSubmit}>
                     {form.fields.map((field, index) => (
                         <div key={index} className="mb-3 input-field-container">
-                            {/* Display field name as the label */}
-                            <label
-                                htmlFor={`field-${index}`}
-                                className="form-label"
-                            >
+                            <label htmlFor={`field-${index}`} className="form-label">
                                 {field}
                             </label>
                             <div className="d-flex align-items-center">
@@ -201,30 +192,18 @@ const UserDashboard = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Fetch forms from the backend
-        axios
-            .get('https://form-builder-38h6.onrender.com/api/forms')
-            .then((response) => {
-                setForms(response.data);
-            })
-            .catch((error) => {
-                console.error('Error fetching forms:', error);
-            });
+        axios.get('https://form-builder-38h6.onrender.com/api/forms')
+            .then(response => setForms(response.data))
+            .catch(error => console.error('Error fetching forms:', error));
 
-        // Fetch submissions from the backend
-        axios
-            .get('https://form-builder-38h6.onrender.com/api/forms/getSubmitForm')
-            .then((response) => {
-                setSubmissions(response.data);
-            })
-            .catch((error) => {
-                console.error('Error fetching submissions:', error);
-            });
+        axios.get('https://form-builder-38h6.onrender.com/api/forms/getSubmitForm')
+            .then(response => setSubmissions(response.data))
+            .catch(error => console.error('Error fetching submissions:', error));
     }, []);
 
     const handleLogout = () => {
         localStorage.removeItem('userRole');
-        navigate('/'); // Redirect to login page
+        navigate('/');
     };
 
     return (
@@ -242,8 +221,6 @@ const UserDashboard = () => {
                 </div>
             </nav>
             <h1 className="mb-4 text-center dashboard-title">User Dashboard</h1>
-
-            {/* Forms Section */}
             <div className="form-grid mb-5">
                 {forms.length === 0 ? (
                     <p>Loading forms...</p>
@@ -251,8 +228,6 @@ const UserDashboard = () => {
                     forms.map((form) => <FillForm key={form._id} form={form} />)
                 )}
             </div>
-
-            {/* Submissions Section */}
             <h2 className="text-center mb-3">Submissions</h2>
             <div className="container">
                 <table className="table table-striped">
@@ -274,9 +249,7 @@ const UserDashboard = () => {
                                 <tr key={index}>
                                     <td>{submission.formTitle}</td>
                                     <td>
-                                        <span
-                                            className={`status-tag status-${submission.status.toLowerCase()}`}
-                                        >
+                                        <span className={`status-tag status-${submission.status.toLowerCase()}`}>
                                             {submission.status}
                                         </span>
                                     </td>
