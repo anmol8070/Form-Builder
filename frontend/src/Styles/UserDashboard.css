@@ -50,7 +50,7 @@
     overflow: hidden;
     min-height: 250px;
     display: flex;
-    flex-direction: column;
+    flex-direction: column; 
        animation: fadeInUp 0.8s ease; /* Fade In Animation for card */
 }
 
