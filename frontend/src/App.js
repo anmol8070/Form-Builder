@@ -4,12 +4,14 @@ import AdminDashboard from './pages/AdminDashboard';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import UserDashboard from './pages/UserDashboard';
+import Navbar from './pages/Navbar';
+
 import './App.css';
 import './Styles/AdminDashboard.css';
 import './Styles/UserDashboard.css';
 import './Styles/LoginPage.css';
 import './Styles/RegisterPage.css';
-import Navbar from './pages/Navbar';
+
 
 function App() {
   return (

@@ -39,11 +39,6 @@ const RegisterPage = () => {
 
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light mb-4">
-        <div className="container justify-content-center">
-          <span className="navbar-brand text-center">Form Builder App</span>
-        </div>
-      </nav>
       <div className="register-container">
         <div className="register-form-wrapper card shadow p-4">
           <h2 className="text-center mb-4 register-heading">Register</h2>
